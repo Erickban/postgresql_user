@@ -25,18 +25,12 @@ create table client (id_client INT, first_name TEXT, last_name TEXT, adreess TEX
  email TEXT, cellphone TEXT, telephone TEXT, job_title TEXT, gender TEXT, college TEXT) PARTITION BY LIST (gender);
 
 
- alter table particion_client_2 add constraint particion2_check check (gender= 'Female' OR gender='female');
+alter table particion_client_1 add constraint particion1_check check (gender= 'Female' OR gender='female');
 alter table particion_client_2 add constraint particion2_check check (gender= 'Male' OR gender='male');
-
-
-
-DROP TABLE
  create table particion_client_1 partition of client1 for values IN ('Female', 'female');
  create table particion_client_2 partition of client1 for values IN ('Male', 'male');
- alter table particion_client_1 add constraint particion1_check check (gender= 'Female' OR gender='female');
-ALTER TABLE
- alter table particion_client_2 add constraint particion2_check check (gender= 'Male' OR gender='male');
-ALTER TABLE
+  
+
  \i /var/lib/postgresql/product.sql
 
 select count(*) from particion_client_1;
