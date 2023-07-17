@@ -21,24 +21,23 @@ select count(*) from particion_product_2;
 select count(*) from particion_product_3;
 
 
-ALTER TABLE
- alter table particion_client_1 add constraint particion1_check check (gender= 'Femaale' OR gender='female');
+create table client (id_client INT, first_name TEXT, last_name TEXT, adreess TEXT, country TEXT,
+ email TEXT, cellphone TEXT, telephone TEXT, job_title TEXT, gender TEXT, college TEXT) PARTITION BY LIST (gender);
+
 
  alter table particion_client_2 add constraint particion2_check check (gender= 'Female' OR gender='female');
 alter table particion_client_2 add constraint particion2_check check (gender= 'Male' OR gender='male');
-constraint "particion2_check" for relation "particion_client_2" already exists
 
- constraint "particion1_check" for relation "particion_client_1" already exists
- drop table particion_client_1;
- drop table particion_client_2;
+
+
 DROP TABLE
-particion_tablas=# create table particion_client_1 partition of client1 for values IN ('Female', 'female');
+ create table particion_client_1 partition of client1 for values IN ('Female', 'female');
  create table particion_client_2 partition of client1 for values IN ('Male', 'male');
  alter table particion_client_1 add constraint particion1_check check (gender= 'Female' OR gender='female');
 ALTER TABLE
  alter table particion_client_2 add constraint particion2_check check (gender= 'Male' OR gender='male');
 ALTER TABLE
-particion_tablas=# \i /var/lib/postgresql/product.sql
+ \i /var/lib/postgresql/product.sql
 
 select count(*) from particion_client_1;
 select count(*) from particion_client_2;
